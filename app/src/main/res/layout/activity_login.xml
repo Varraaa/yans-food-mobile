@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLoginRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_screen"
+    android:padding="@dimen/space_24">
+
+    <!-- ScrollView untuk mendukung layar HP kecil dan saat keyboard muncul -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/space_16">
+
+            <!-- HEADER BRAND LOGO -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                app:cardBackgroundColor="@color/brand_primary_light"
+                app:cardCornerRadius="@dimen/radius_card"
+                app:cardElevation="@dimen/elevation_flat"
+                app:strokeColor="@color/border_soft"
+                app:strokeWidth="1dp">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_yans_food_logo" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16"
+                android:fontFamily="sans-serif-black"
+                android:text="@string/login_title"
+                android:textColor="@color/brand_primary"
+                android:textSize="@dimen/text_2xl" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_4"
+                android:fontFamily="sans-serif"
+                android:text="@string/login_subtitle"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_base" />
+
+            <!-- FORM CARD CONTAINER -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_32"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="@dimen/radius_card"
+                app:cardElevation="@dimen/elevation_card"
+                app:strokeColor="@color/border_soft"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_20">
+
+                    <!-- INPUT EMAIL -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilEmail"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/email_label"
+                        app:boxCornerRadiusBottomEnd="@dimen/radius_button"
+                        app:boxCornerRadiusBottomStart="@dimen/radius_button"
+                        app:boxCornerRadiusTopEnd="@dimen/radius_button"
+                        app:boxCornerRadiusTopStart="@dimen/radius_button"
+                        app:boxStrokeColor="@color/brand_primary"
+                        app:startIconDrawable="@drawable/ic_email_24"
+                        app:startIconTint="@color/brand_primary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:text="admin@yansfood.id"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_base" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- INPUT PASSWORD -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPassword"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_16"
+                        android:hint="@string/password_label"
+                        app:boxCornerRadiusBottomEnd="@dimen/radius_button"
+                        app:boxCornerRadiusBottomStart="@dimen/radius_button"
+                        app:boxCornerRadiusTopEnd="@dimen/radius_button"
+                        app:boxCornerRadiusTopStart="@dimen/radius_button"
+                        app:boxStrokeColor="@color/brand_primary"
+                        app:endIconMode="password_toggle"
+                        app:startIconDrawable="@drawable/ic_lock_24"
+                        app:startIconTint="@color/brand_primary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:text="password"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_base" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!-- TOMBOL LOGIN -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="@dimen/space_24"
+                        android:backgroundTint="@color/brand_primary"
+                        android:fontFamily="sans-serif-medium"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@string/btn_login"
+                        android:textColor="@color/text_on_primary"
+                        android:textSize="@dimen/text_base"
+                        app:cornerRadius="@dimen/radius_button"
+                        app:elevation="@dimen/elevation_flat" />
+
+                    <!-- INDIKATOR LOADING -->
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/space_16"
+                        android:indeterminateTint="@color/brand_primary"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- FOOTER INFO BISNIS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_32"
+                android:fontFamily="sans-serif"
+                android:text="Yan's Food Kuliner • Sistem Manajemen Mandiri"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_xs" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand Primary Colors (Terakota Hangat Yan's Food) -->
+    <color name="brand_primary">#C1440E</color>
+    <color name="brand_primary_variant">#8F3209</color>
+    <color name="brand_primary_light">#FFF1EB</color>
+
+    <!-- Brand Secondary (Amber / Emas Kuliner) -->
+    <color name="brand_accent">#D6A253</color>
+    <color name="brand_accent_light">#FEF8EC</color>
+
+    <!-- Surfaces & Backgrounds (Adem di Mata, Tidak Silau) -->
+    <color name="bg_screen">#F8F6F2</color>          <!-- Warm Off-White -->
+    <color name="bg_card">#FFFFFF</color>            <!-- Kartu Putih Bersih -->
+    <color name="bg_subtle">#F1ECE4</color>          <!-- Abu-abu Krem untuk Shimmer & Divider -->
+
+    <!-- Text Hierarchy (Tingkat Keterbacaan Tinggi) -->
+    <color name="text_primary">#1C1917</color>       <!-- Stone 900 (Judul & Angka) -->
+    <color name="text_secondary">#78716C</color>     <!-- Stone 500 (Deskripsi & Subtitle) -->
+    <color name="text_tertiary">#A8A29E</color>      <!-- Stone 400 (Waktu & Keterangan Tipis) -->
+    <color name="text_on_primary">#FFFFFF</color>
+
+    <!-- Status Indicators (Feedback Fungsional) -->
+    <color name="status_success">#059669</color>      <!-- Hijau Tersedia / Laba Surplus -->
+    <color name="status_success_bg">#ECFDF5</color>
+    <color name="status_warning">#D97706</color>      <!-- Kuning Peringatan Stok Menipis -->
+    <color name="status_warning_bg">#FFFBEB</color>
+    <color name="status_danger">#E11D48</color>       <!-- Merah Stok Habis / Pengeluaran Biaya -->
+    <color name="status_danger_bg">#FFF1F2</color>
+
+    <!-- Border & Dividers -->
+    <color name="border_soft">#E7E1D8</color>
+    <color name="border_input">#D4CDC5</color>
+    <color name="ripple_dark">#20C1440E</color>
+
+    <!-- Standard Colors -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

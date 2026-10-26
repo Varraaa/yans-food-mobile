@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Yan\'s Food</string>
+    <string name="login_title">YAN\'S FOOD ADMIN</string>
+    <string name="login_subtitle">Masuk ke Panel Pengawasan Owner</string>
+    <string name="email_label">Email Akun Admin</string>
+    <string name="email_placeholder">admin@yansfood.id</string>
+    <string name="password_label">Kata Sandi</string>
+    <string name="password_placeholder">••••••••</string>
+    <string name="btn_login">Masuk ke Dashboard</string>
+    <string name="login_loading">Memverifikasi akun...</string>
+    <string name="nav_dashboard">Beranda</string>
+    <string name="nav_menu">Menu</string>
+    <string name="nav_expense">Biaya</string>
+    <string name="nav_report">Laporan</string>
+    <string name="logout">Keluar dari Aplikasi</string>
+    <string name="logout_confirmation_title">Konfirmasi Keluar</string>
+    <string name="logout_confirmation_msg">Apakah Anda yakin ingin keluar dari akun Admin?</string>
+    <string name="btn_cancel">Batal</string>
+    <string name="btn_confirm_logout">Ya, Keluar</string>
+</resources>
