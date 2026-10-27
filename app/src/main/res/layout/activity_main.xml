@@ -41,9 +41,12 @@
                 app:strokeWidth="1dp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:id="@+id/ivTopLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_yans_food_logo" />
             </com.google.android.material.card.MaterialCardView>
@@ -76,7 +79,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- SISI KANAN: STATUS "● BUKA" & AVATAR LINGKARAN PUTUS-PUTUS -->
+        <!-- SISI KANAN: STATUS "● BUKA" & AVATAR LINGKARAN PUTUS-PUTUS DENGAN HURUF Y -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -113,29 +116,33 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <!-- Avatar Lingkaran dengan Garis Putus-Putus Biru -->
+            <!-- Avatar Lingkaran dengan Garis Putus-Putus Biru & Huruf Y -->
             <FrameLayout
                 android:id="@+id/layoutAvatarOwner"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:layout_marginStart="@dimen/space_10"
                 android:background="@drawable/bg_avatar_dashed_ring"
-                android:padding="3dp">
+                android:padding="3.5dp">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/brand_primary"
                     app:cardCornerRadius="100dp"
                     app:cardElevation="0dp"
                     app:strokeWidth="0dp">
 
-                    <ImageView
-                        android:id="@+id/ivTopAvatar"
+                    <TextView
+                        android:id="@+id/tvTopAvatarInitial"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:contentDescription="Foto Profil Owner"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_owner_avatar" />
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:text="Y"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
                 </com.google.android.material.card.MaterialCardView>
             </FrameLayout>
 

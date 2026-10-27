@@ -1,5 +1,29 @@
+import java.io.File
+import java.util.Base64
+
 plugins {
     alias(libs.plugins.android.application)
+}
+
+// Otomatis mengekstrak logo_yans_food.png dari Icon Yans Food.svg lalu memindahkan SVG ke root
+val drawableFolder = File(projectDir, "src/main/res/drawable")
+val rawSvg = File(drawableFolder, "Icon Yans Food.svg")
+if (rawSvg.exists()) {
+    try {
+        val svgContent = rawSvg.readText()
+        val base64Prefix = "data:image/png;base64,"
+        val startIndex = svgContent.indexOf(base64Prefix)
+        if (startIndex != -1) {
+            val base64Data = svgContent.substring(startIndex + base64Prefix.length).substringBefore("\"")
+            val imageBytes = Base64.getDecoder().decode(base64Data)
+            val pngFile = File(drawableFolder, "logo_yans_food.png")
+            pngFile.writeBytes(imageBytes)
+            val backupFile = File(rootDir, "Icon_Yans_Food_original.svg")
+            rawSvg.copyTo(backupFile, overwrite = true)
+            rawSvg.delete()
+        }
+    } catch (_: Exception) {
+    }
 }
 
 android {

@@ -49,6 +49,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupTopBar() {
+        // Otomatis mendeteksi dan memuat logo kustom jika file logo_yans_food disimpan di res/drawable
+        val customLogoId = resources.getIdentifier("logo_yans_food", "drawable", packageName)
+        if (customLogoId != 0) {
+            binding.ivTopLogo.setImageResource(customLogoId)
+        }
+
         // Klik avatar profil untuk langsung lompat ke tab Laporan / Profil
         binding.layoutAvatarOwner.applyButtonBounceEffect()
         binding.layoutAvatarOwner.setOnClickListener {
