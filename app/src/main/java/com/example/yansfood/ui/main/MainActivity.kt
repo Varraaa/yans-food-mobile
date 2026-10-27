@@ -1,6 +1,7 @@
 package com.example.yansfood.ui.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,6 +13,7 @@ import com.example.yansfood.ui.dashboard.DashboardFragment
 import com.example.yansfood.ui.expense.ExpenseFragment
 import com.example.yansfood.ui.menu.MenuFragment
 import com.example.yansfood.ui.report.ReportProfileFragment
+import com.example.yansfood.util.applyButtonBounceEffect
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,11 +31,26 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        setupTopBar()
         setupBottomNavigation()
 
         if (savedInstanceState == null) {
             // Tampilkan fragment default (Dashboard)
-            loadFragment(DashboardFragment())
+            loadFragment(DashboardFragment(), "Beranda")
+        }
+    }
+
+    private fun setupTopBar() {
+        // Klik avatar profil untuk langsung lompat ke tab Laporan / Profil
+        binding.layoutAvatarOwner.applyButtonBounceEffect()
+        binding.layoutAvatarOwner.setOnClickListener {
+            binding.bottomNavigation.selectedItemId = R.id.nav_report
+        }
+
+        // Klik pill status buka untuk info status gerai
+        binding.layoutStatusBuka.applyButtonBounceEffect()
+        binding.layoutStatusBuka.setOnClickListener {
+            Toast.makeText(this, "Status Toko: Buka & Menerima Pesanan", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -41,19 +58,19 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_dashboard -> {
-                    loadFragment(DashboardFragment())
+                    loadFragment(DashboardFragment(), "Beranda")
                     true
                 }
                 R.id.nav_menu -> {
-                    loadFragment(MenuFragment())
+                    loadFragment(MenuFragment(), "Menu")
                     true
                 }
                 R.id.nav_expense -> {
-                    loadFragment(ExpenseFragment())
+                    loadFragment(ExpenseFragment(), "Biaya")
                     true
                 }
                 R.id.nav_report -> {
-                    loadFragment(ReportProfileFragment())
+                    loadFragment(ReportProfileFragment(), "Laporan")
                     true
                 }
                 else -> false
@@ -61,7 +78,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
+    private fun loadFragment(fragment: Fragment, titleSubtitle: String) {
+        binding.tvTopSubtitle.text = titleSubtitle
+
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 android.R.anim.fade_in,

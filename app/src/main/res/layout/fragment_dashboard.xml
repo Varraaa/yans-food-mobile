@@ -18,51 +18,6 @@
             android:orientation="vertical"
             android:padding="@dimen/space_16">
 
-            <!-- TOP BAR HEADER -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_16">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:contentDescription="@string/app_name"
-                        android:src="@drawable/ic_yans_food_logo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_8"
-                        android:fontFamily="sans-serif-black"
-                        android:text="YAN'S FOOD"
-                        android:textColor="@color/brand_primary"
-                        android:textSize="@dimen/text_lg" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvWelcomeUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/bg_badge_success"
-                    android:fontFamily="sans-serif-medium"
-                    android:paddingHorizontal="@dimen/space_12"
-                    android:paddingVertical="@dimen/space_4"
-                    android:text="Halo, Owner"
-                    android:textColor="@color/status_success"
-                    android:textSize="@dimen/text_xs" />
-            </RelativeLayout>
-
             <!-- JUDUL SEKSI RINGKASAN -->
             <TextView
                 android:layout_width="wrap_content"

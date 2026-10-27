@@ -49,8 +49,6 @@ class DashboardFragment : Fragment() {
         setupSwipeRefresh()
         observeData()
 
-        binding.tvWelcomeUser.text = "Halo, ${sessionManager.getUserName()}"
-
         viewModel.loadDashboardData()
     }
 

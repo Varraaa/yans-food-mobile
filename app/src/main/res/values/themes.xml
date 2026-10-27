@@ -14,9 +14,14 @@
         <item name="colorOnSurface">@color/text_primary</item>
 
         <!-- Status Bar -->
-        <item name="android:statusBarColor">@color/bg_screen</item>
+        <item name="android:statusBarColor">@color/bg_card</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.YansFood" parent="Base.Theme.YansFood" />
+
+    <!-- Style indikator transparan agar tampilan navbar persis seperti screenshot 2 -->
+    <style name="CustomBottomNavActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
 </resources>
