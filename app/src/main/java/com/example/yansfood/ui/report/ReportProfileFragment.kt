@@ -58,22 +58,11 @@ class ReportProfileFragment : Fragment() {
         dashboardRepository = DashboardRepository(sessionManager)
         expenseRepository = ExpenseRepository(sessionManager)
 
-        setupUI()
         setupRecyclerView()
         setupPeriodFilter()
         setupSwipeRefresh()
 
         loadFinancialReportData()
-    }
-
-    private fun setupUI() {
-        binding.tvProfileName.text = sessionManager.getUserName()
-        binding.tvProfileEmail.text = sessionManager.getUserEmail()
-
-        binding.btnLogout.applyButtonBounceEffect()
-        binding.btnLogout.setOnClickListener {
-            showLogoutConfirmationDialog()
-        }
     }
 
     private fun setupRecyclerView() {
@@ -160,23 +149,6 @@ class ReportProfileFragment : Fragment() {
         val gasListrik = expenses * 0.37
         binding.tvReportBahanBaku.text = bahanBaku.toRupiahFormat()
         binding.tvReportGasListrik.text = gasListrik.toRupiahFormat()
-    }
-
-    private fun showLogoutConfirmationDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.logout_confirmation_title)
-            .setMessage(R.string.logout_confirmation_msg)
-            .setNegativeButton(R.string.btn_cancel, null)
-            .setPositiveButton(R.string.btn_confirm_logout) { _, _ ->
-                sessionManager.clearSession()
-
-                val intent = Intent(requireContext(), LoginActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                }
-                startActivity(intent)
-                activity?.finish()
-            }
-            .show()
     }
 
     override fun onDestroyView() {

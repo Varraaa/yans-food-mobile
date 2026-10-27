@@ -1,5 +1,6 @@
 package com.example.yansfood.ui.main
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.widget.ImageView
@@ -12,12 +13,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.yansfood.R
+import com.example.yansfood.data.local.SessionManager
 import com.example.yansfood.databinding.ActivityMainBinding
+import com.example.yansfood.databinding.DialogAdminProfileBottomSheetBinding
+import com.example.yansfood.ui.auth.LoginActivity
 import com.example.yansfood.ui.dashboard.DashboardFragment
 import com.example.yansfood.ui.expense.ExpenseFragment
 import com.example.yansfood.ui.menu.MenuFragment
 import com.example.yansfood.ui.report.ReportProfileFragment
 import com.example.yansfood.util.applyButtonBounceEffect
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,10 +62,10 @@ class MainActivity : AppCompatActivity() {
             binding.ivTopLogo.setImageResource(customLogoId)
         }
 
-        // Klik avatar profil untuk langsung lompat ke tab Laporan / Profil
+        // Klik avatar profil di pojok kanan atas untuk membuka Modal Info Akun Admin & Logout
         binding.layoutAvatarOwner.applyButtonBounceEffect()
         binding.layoutAvatarOwner.setOnClickListener {
-            selectTab(3)
+            showAdminProfileBottomSheet()
         }
 
         // Klik status "Buka" untuk feedback info gerai
@@ -67,6 +73,43 @@ class MainActivity : AppCompatActivity() {
         binding.layoutStatusBuka.setOnClickListener {
             Toast.makeText(this, "Status Toko: Buka & Menerima Pesanan", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showAdminProfileBottomSheet() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val sheetBinding = DialogAdminProfileBottomSheetBinding.inflate(layoutInflater)
+        bottomSheetDialog.setContentView(sheetBinding.root)
+
+        val sessionManager = SessionManager(this)
+        val userName = sessionManager.getUserName()
+        val userEmail = sessionManager.getUserEmail()
+
+        sheetBinding.tvSheetProfileName.text = if (!userName.isNullOrBlank()) userName else "Owner Yan's Food"
+        sheetBinding.tvSheetProfileEmail.text = if (!userEmail.isNullOrBlank()) userEmail else "owner@yansfood.id"
+
+        sheetBinding.btnSheetLogout.applyButtonBounceEffect()
+        sheetBinding.btnSheetLogout.setOnClickListener {
+            bottomSheetDialog.dismiss()
+            showLogoutConfirmationDialog(sessionManager)
+        }
+
+        bottomSheetDialog.show()
+    }
+
+    private fun showLogoutConfirmationDialog(sessionManager: SessionManager) {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.logout_confirmation_title)
+            .setMessage(R.string.logout_confirmation_msg)
+            .setNegativeButton(R.string.btn_cancel, null)
+            .setPositiveButton(R.string.btn_confirm_logout) { _, _ ->
+                sessionManager.clearSession()
+                val intent = Intent(this, LoginActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
+                finish()
+            }
+            .show()
     }
 
     private fun setupCustomBottomNav() {
