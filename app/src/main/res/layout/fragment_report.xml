@@ -1,176 +1,583 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshReport"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_screen"
-    android:fillViewport="true">
+    android:background="@color/bg_screen">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/space_16">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <!-- HEADER -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="LAPORAN &amp; AKUN OWNER"
-            android:textColor="@color/brand_primary"
-            android:textSize="@dimen/text_lg" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:text="Status sinkronisasi server dan profil akun gerai"
-            android:textColor="@color/text_secondary"
-            android:textSize="@dimen/text_xs" />
-
-        <!-- KARTU PROFIL OWNER -->
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
-            app:cardBackgroundColor="@color/bg_card"
-            app:cardCornerRadius="@dimen/radius_card"
-            app:cardElevation="@dimen/elevation_card"
-            app:strokeColor="@color/border_soft"
-            app:strokeWidth="1dp">
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/space_16"
+            android:paddingTop="@dimen/space_16"
+            android:paddingBottom="@dimen/space_32">
 
-            <LinearLayout
+            <!-- HEADER LAPORAN -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="LAPORAN &amp; PENGHASILAN"
+                android:textColor="@color/brand_primary"
+                android:textSize="@dimen/text_lg" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="sans-serif"
+                android:text="Rekapitulasi penjualan kasir, beban dapur, dan laba gerai"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_xs" />
+
+            <!-- FILTER PERIODE LAPORAN (CHIP TABS) -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupPeriod"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_12"
+                app:singleLine="true"
+                app:singleSelection="true">
 
-                <!-- AVATAR LOGO -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    app:cardBackgroundColor="@color/brand_primary_light"
-                    app:cardCornerRadius="@dimen/radius_card"
-                    app:cardElevation="@dimen/elevation_flat"
-                    app:strokeColor="@color/border_soft"
-                    app:strokeWidth="1dp">
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipHariIni"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Hari Ini"
+                    app:chipCornerRadius="@dimen/radius_chip" />
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        android:contentDescription="Avatar"
-                        android:src="@drawable/ic_yans_food_logo" />
-                </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipMingguIni"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Minggu Ini"
+                    app:chipCornerRadius="@dimen/radius_chip" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipBulanIni"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bulan Ini"
+                    app:chipCornerRadius="@dimen/radius_chip" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSemua"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Semua"
+                    app:chipCornerRadius="@dimen/radius_chip" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- KARTU UTAMA: RINGKASAN PENGHASILAN & LABA BERSIH (HERO FINANCIAL CARD) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="@dimen/radius_card"
+                app:cardElevation="@dimen/elevation_card"
+                app:strokeColor="@color/border_soft"
+                app:strokeWidth="1dp">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_12"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_16">
+
+                    <!-- BAGIAN ATAS: KEUNTUNGAN BERSIH -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-bold"
+                            android:text="KEUNTUNGAN BERSIH (NET PROFIT)"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tvNetProfitBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/bg_badge_success"
+                            android:fontFamily="sans-serif-bold"
+                            android:paddingHorizontal="@dimen/space_8"
+                            android:paddingVertical="@dimen/space_2"
+                            android:text="● Surplus Laba"
+                            android:textColor="@color/status_success"
+                            android:textSize="10.5sp" />
+                    </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tvProfileName"
+                        android:id="@+id/tvReportNetProfit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
                         android:fontFamily="sans-serif-black"
-                        android:textColor="@color/text_primary"
-                        android:textSize="@dimen/text_base"
-                        tools:text="Owner Yan's Food" />
-
-                    <TextView
-                        android:id="@+id/tvProfileEmail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:fontFamily="sans-serif"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="@dimen/text_xs"
-                        tools:text="admin@yansfood.id" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_4"
-                        android:background="@drawable/bg_badge_success"
-                        android:fontFamily="sans-serif-bold"
-                        android:paddingHorizontal="@dimen/space_8"
-                        android:paddingVertical="@dimen/space_2"
-                        android:text="Administrator &amp; Pemilik"
                         android:textColor="@color/status_success"
-                        android:textSize="@dimen/text_xs" />
+                        android:textSize="26sp"
+                        tools:text="Rp 330.000" />
+
+                    <!-- GARIS DIVIDER HALUS -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/space_12"
+                        android:background="@color/border_soft" />
+
+                    <!-- DUA KOLOM: PEMASUKAN KOTOR VS BEBAN DAPUR -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <!-- KOLOM KIRI: TOTAL OMSET -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:text="Pemasukan Kotor (Omset)"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/tvReportGrossSales"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif-bold"
+                                android:textColor="@color/text_primary"
+                                android:textSize="15sp"
+                                tools:text="Rp 450.000" />
+
+                            <TextView
+                                android:id="@+id/tvReportTransactionCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp"
+                                tools:text="18 Transaksi Kasir" />
+                        </LinearLayout>
+
+                        <!-- PEMISAH VERTIKAL -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/space_8"
+                            android:background="@color/border_soft" />
+
+                        <!-- KOLOM KANAN: TOTAL BIAYA DAPUR -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:text="Total Beban Dapur"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/tvReportExpenses"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif-bold"
+                                android:textColor="@color/status_danger"
+                                android:textSize="15sp"
+                                tools:text="Rp 120.000" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif"
+                                android:text="Bahan, gas &amp; kemasan"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- KARTU STATUS KONEKSI SERVER -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16"
-            app:cardBackgroundColor="@color/bg_card"
-            app:cardCornerRadius="@dimen/radius_card"
-            app:cardElevation="@dimen/elevation_card"
-            app:strokeColor="@color/border_soft"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
+            <!-- KARTU METODE PEMBAYARAN KASIR (CASH VS QRIS) -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/space_16">
+                android:layout_marginTop="@dimen/space_12"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="@dimen/radius_card"
+                app:cardElevation="@dimen/elevation_card"
+                app:strokeColor="@color/border_soft"
+                app:strokeWidth="1dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-bold"
-                    android:text="Status Sinkronisasi Sistem"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text_sm" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_16">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-bold"
+                        android:text="Metode Pembayaran Kasir POS"
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp" />
+
+                    <!-- ROW QRIS -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_10"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_badge_warning"
+                            android:fontFamily="sans-serif-bold"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="2dp"
+                            android:text="QRIS"
+                            android:textColor="@color/status_warning"
+                            android:textSize="10.5sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_8"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif"
+                            android:text="QRIS &amp; Transfer Bank"
+                            android:textColor="@color/text_primary"
+                            android:textSize="12.5sp" />
+
+                        <TextView
+                            android:id="@+id/tvReportQrisTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-bold"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            tools:text="Rp 280.000 (62%)" />
+                    </LinearLayout>
+
+                    <!-- ROW CASH -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_badge_success"
+                            android:fontFamily="sans-serif-bold"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="2dp"
+                            android:text="CASH"
+                            android:textColor="@color/status_success"
+                            android:textSize="10.5sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_8"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif"
+                            android:text="Tunai Kasir"
+                            android:textColor="@color/text_primary"
+                            android:textSize="12.5sp" />
+
+                        <TextView
+                            android:id="@+id/tvReportCashTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-bold"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            tools:text="Rp 170.000 (38%)" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- KARTU ALOKASI PENGELUARAN DAPUR -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="@dimen/radius_card"
+                app:cardElevation="@dimen/elevation_card"
+                app:strokeColor="@color/border_soft"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_8"
-                    android:fontFamily="sans-serif"
-                    android:text="• Backend Server: https://yansfoods.my.id (Biznet GIO)\n• Sinkronisasi POS Kasir: Terhubung &amp; Real-time\n• Database: MySQL 8.x (yans_food terpusat)\n• Versi Aplikasi: 1.0.0 (Native Kotlin Companion)"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="@dimen/text_xs" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_16">
 
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-bold"
+                        android:text="Alokasi Beban Operasional Dapur"
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp" />
 
-        <!-- TOMBOL LOGOUT KELUAR -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogout"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginTop="@dimen/space_32"
-            android:fontFamily="sans-serif-bold"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:text="@string/logout"
-            android:textColor="@color/status_danger"
-            app:cornerRadius="@dimen/radius_button"
-            app:strokeColor="@color/status_danger"
-            app:strokeWidth="1dp" />
+                    <!-- Kategori Bahan Baku -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_10">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/space_24"
-            android:fontFamily="sans-serif"
-            android:text="Yan's Food Mobile Admin • Bebas AI Slop"
-            android:textColor="@color/text_tertiary"
-            android:textSize="@dimen/text_xs" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="• Bahan Baku (Daging, Sayur, Kulit)"
+                            android:textColor="@color/text_primary"
+                            android:textSize="12sp" />
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+                        <TextView
+                            android:id="@+id/tvReportBahanBaku"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="sans-serif-bold"
+                            android:textColor="@color/status_danger"
+                            android:textSize="12.5sp"
+                            tools:text="Rp 76.000" />
+                    </RelativeLayout>
+
+                    <!-- Kategori Gas & Listrik -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_6">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif"
+                            android:text="• Gas LPG, Listrik &amp; Operasional"
+                            android:textColor="@color/text_primary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvReportGasListrik"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="sans-serif-bold"
+                            android:textColor="@color/status_danger"
+                            android:textSize="12.5sp"
+                            tools:text="Rp 44.000" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- DAFTAR TRANSAKSI KASIR WEB TERAKHIR -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_20"
+                android:fontFamily="sans-serif-bold"
+                android:text="Transaksi Kasir Web Terakhir"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="sans-serif"
+                android:text="Struk penjualan kasir yang tersinkronisasi dari web"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_xs" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvReportTransactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8"
+                android:nestedScrollingEnabled="false"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_transaction" />
+
+            <!-- KARTU AKUN OWNER & SINKRONISASI SISTEM -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_20"
+                app:cardBackgroundColor="@color/bg_card"
+                app:cardCornerRadius="@dimen/radius_card"
+                app:cardElevation="@dimen/elevation_card"
+                app:strokeColor="@color/border_soft"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/space_16">
+
+                    <!-- IDENTITAS OWNER -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <!-- AVATAR HURUF Y -->
+                        <FrameLayout
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_avatar_dashed_ring"
+                            android:padding="3dp">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:cardBackgroundColor="@color/brand_primary"
+                                app:cardCornerRadius="100dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="0dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="sans-serif-black"
+                                    android:gravity="center"
+                                    android:includeFontPadding="false"
+                                    android:text="Y"
+                                    android:textColor="@color/white"
+                                    android:textSize="18sp" />
+                            </com.google.android.material.card.MaterialCardView>
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_12"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvProfileName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-black"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_base"
+                                tools:text="Owner Yan's Food" />
+
+                            <TextView
+                                android:id="@+id/tvProfileEmail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="sans-serif"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_xs"
+                                tools:text="admin@yansfood.id" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_4"
+                                android:background="@drawable/bg_badge_success"
+                                android:fontFamily="sans-serif-bold"
+                                android:paddingHorizontal="@dimen/space_8"
+                                android:paddingVertical="@dimen/space_2"
+                                android:text="Administrator &amp; Pemilik"
+                                android:textColor="@color/status_success"
+                                android:textSize="@dimen/text_xs" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="@dimen/space_12"
+                        android:background="@color/border_soft" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="• Backend Server: https://yansfoods.my.id (Biznet GIO)\n• Sinkronisasi POS Kasir: Terhubung &amp; Real-time\n• Database: MySQL 8.x (yans_food terpusat)"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="@dimen/text_xs" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- TOMBOL LOGOUT KELUAR -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogout"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="@dimen/space_24"
+                android:fontFamily="sans-serif-bold"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/logout"
+                android:textColor="@color/status_danger"
+                app:cornerRadius="@dimen/radius_button"
+                app:strokeColor="@color/status_danger"
+                app:strokeWidth="1dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_16"
+                android:fontFamily="sans-serif"
+                android:text="Yan's Food Mobile Admin • Bebas AI Slop"
+                android:textColor="@color/text_tertiary"
+                android:textSize="@dimen/text_xs" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

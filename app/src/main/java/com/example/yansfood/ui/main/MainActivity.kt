@@ -32,8 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.mainLayoutRoot) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Top bar diberikan padding top sebesar status bar Android (jam, sinyal, baterai)
-            binding.topHeaderBar.setPadding(0, systemBars.top, 0, 0)
+            val horizontalPadding = resources.getDimensionPixelSize(R.dimen.space_20)
+            // Top bar diberikan padding top sebesar status bar Android dan padding horizontal 20dp agar logo dan avatar tidak terlalu di pojok
+            binding.topHeaderBar.setPadding(horizontalPadding, systemBars.top, horizontalPadding, 0)
             // Bottom navbar diberikan padding bottom sebesar navigation bar Android (3 tombol / gesture pill)
             binding.customBottomNav.setPadding(0, 0, 0, systemBars.bottom)
             insets

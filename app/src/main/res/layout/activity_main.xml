@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:background="@color/bg_card"
         android:elevation="1dp"
-        android:paddingHorizontal="@dimen/space_16"
+        android:paddingHorizontal="@dimen/space_20"
         android:paddingVertical="@dimen/space_12"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -48,7 +48,7 @@
                     android:padding="0dp"
                     android:scaleType="centerCrop"
                     android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_yans_food_logo" />
+                    android:src="@drawable/logo_yans_food" />
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Teks Brand & Subtitle Halaman Aktif -->
