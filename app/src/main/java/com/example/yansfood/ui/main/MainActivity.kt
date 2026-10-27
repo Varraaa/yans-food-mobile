@@ -1,9 +1,13 @@
 package com.example.yansfood.ui.main
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -18,6 +22,7 @@ import com.example.yansfood.util.applyButtonBounceEffect
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var currentTabIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,18 +30,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.mainLayoutRoot) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.mainLayoutRoot) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)
+            // Top bar diberikan padding top sebesar status bar Android (jam, sinyal, baterai)
+            binding.topHeaderBar.setPadding(0, systemBars.top, 0, 0)
+            // Bottom navbar diberikan padding bottom sebesar navigation bar Android (3 tombol / gesture pill)
+            binding.customBottomNav.setPadding(0, 0, 0, systemBars.bottom)
             insets
         }
 
         setupTopBar()
-        setupBottomNavigation()
+        setupCustomBottomNav()
 
         if (savedInstanceState == null) {
-            // Tampilkan fragment default (Dashboard)
-            loadFragment(DashboardFragment(), "Beranda")
+            // Default pilih tab 0 (Beranda)
+            selectTab(0)
         }
     }
 
@@ -44,43 +52,75 @@ class MainActivity : AppCompatActivity() {
         // Klik avatar profil untuk langsung lompat ke tab Laporan / Profil
         binding.layoutAvatarOwner.applyButtonBounceEffect()
         binding.layoutAvatarOwner.setOnClickListener {
-            binding.bottomNavigation.selectedItemId = R.id.nav_report
+            selectTab(3)
         }
 
-        // Klik pill status buka untuk info status gerai
+        // Klik status "Buka" untuk feedback info gerai
         binding.layoutStatusBuka.applyButtonBounceEffect()
         binding.layoutStatusBuka.setOnClickListener {
             Toast.makeText(this, "Status Toko: Buka & Menerima Pesanan", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setupBottomNavigation() {
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_dashboard -> {
-                    loadFragment(DashboardFragment(), "Beranda")
-                    true
-                }
-                R.id.nav_menu -> {
-                    loadFragment(MenuFragment(), "Menu")
-                    true
-                }
-                R.id.nav_expense -> {
-                    loadFragment(ExpenseFragment(), "Biaya")
-                    true
-                }
-                R.id.nav_report -> {
-                    loadFragment(ReportProfileFragment(), "Laporan")
-                    true
-                }
-                else -> false
+    private fun setupCustomBottomNav() {
+        binding.tabNavBeranda.applyButtonBounceEffect()
+        binding.tabNavMenu.applyButtonBounceEffect()
+        binding.tabNavBiaya.applyButtonBounceEffect()
+        binding.tabNavLaporan.applyButtonBounceEffect()
+
+        binding.tabNavBeranda.setOnClickListener { selectTab(0) }
+        binding.tabNavMenu.setOnClickListener { selectTab(1) }
+        binding.tabNavBiaya.setOnClickListener { selectTab(2) }
+        binding.tabNavLaporan.setOnClickListener { selectTab(3) }
+    }
+
+    fun selectTab(tabIndex: Int) {
+        currentTabIndex = tabIndex
+
+        val activeColor = ContextCompat.getColor(this, R.color.brand_primary)
+        val inactiveColor = ContextCompat.getColor(this, R.color.text_secondary)
+
+        // Reset semua tab ke status inaktif
+        setTabStyle(binding.ivNavBeranda, binding.tvNavBeranda, false, inactiveColor)
+        setTabStyle(binding.ivNavMenu, binding.tvNavMenu, false, inactiveColor)
+        setTabStyle(binding.ivNavBiaya, binding.tvNavBiaya, false, inactiveColor)
+        setTabStyle(binding.ivNavLaporan, binding.tvNavLaporan, false, inactiveColor)
+
+        // Aktifkan tab yang dipilih
+        when (tabIndex) {
+            0 -> {
+                setTabStyle(binding.ivNavBeranda, binding.tvNavBeranda, true, activeColor)
+                binding.tvTopSubtitle.text = getString(R.string.nav_dashboard)
+                loadFragment(DashboardFragment())
+            }
+            1 -> {
+                setTabStyle(binding.ivNavMenu, binding.tvNavMenu, true, activeColor)
+                binding.tvTopSubtitle.text = getString(R.string.nav_menu)
+                loadFragment(MenuFragment())
+            }
+            2 -> {
+                setTabStyle(binding.ivNavBiaya, binding.tvNavBiaya, true, activeColor)
+                binding.tvTopSubtitle.text = getString(R.string.nav_expense)
+                loadFragment(ExpenseFragment())
+            }
+            3 -> {
+                setTabStyle(binding.ivNavLaporan, binding.tvNavLaporan, true, activeColor)
+                binding.tvTopSubtitle.text = getString(R.string.nav_report)
+                loadFragment(ReportProfileFragment())
             }
         }
     }
 
-    private fun loadFragment(fragment: Fragment, titleSubtitle: String) {
-        binding.tvTopSubtitle.text = titleSubtitle
+    private fun setTabStyle(imageView: ImageView, textView: TextView, isActive: Boolean, color: Int) {
+        androidx.core.widget.ImageViewCompat.setImageTintList(
+            imageView,
+            android.content.res.ColorStateList.valueOf(color)
+        )
+        textView.setTextColor(color)
+        textView.typeface = if (isActive) Typeface.DEFAULT_BOLD else Typeface.DEFAULT
+    }
 
+    private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 android.R.anim.fade_in,

@@ -8,7 +8,7 @@
     android:background="@color/bg_screen"
     tools:context=".ui.main.MainActivity">
 
-    <!-- TOP HEADER BAR (Sesuai Persis dengan Screenshot 1) -->
+    <!-- TOP HEADER BAR (Sesuai Persis dengan Screenshot Top Bar) -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topHeaderBar"
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     android:src="@drawable/ic_yans_food_logo" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Teks Brand & Halaman -->
+            <!-- Teks Brand & Subtitle Halaman Aktif -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -167,23 +167,152 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/border_soft"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation" />
+        app:layout_constraintBottom_toTopOf="@id/customBottomNav" />
 
-    <!-- BOTTOM NAVBAR (Sesuai Persis dengan Screenshot 2) -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
+    <!-- BOTTOM NAVBAR (100% SAMA PERSIS DENGAN SCREENSHOT NAVBAR BOTTOM) -->
+    <LinearLayout
+        android:id="@+id/customBottomNav"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
         android:background="@color/bg_card"
-        app:elevation="@dimen/elevation_card"
-        app:itemActiveIndicatorStyle="@style/CustomBottomNavActiveIndicator"
-        app:itemIconSize="24dp"
-        app:itemIconTint="@color/bottom_nav_color"
-        app:itemTextColor="@color/bottom_nav_color"
-        app:labelVisibilityMode="labeled"
+        android:elevation="4dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- TAB 1: BERANDA -->
+            <LinearLayout
+                android:id="@+id/tabNavBeranda"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivNavBeranda"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/nav_dashboard"
+                    android:src="@drawable/ic_nav_beranda"
+                    app:tint="@color/brand_primary" />
+
+                <TextView
+                    android:id="@+id/tvNavBeranda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif-bold"
+                    android:text="@string/nav_dashboard"
+                    android:textColor="@color/brand_primary"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <!-- TAB 2: MENU -->
+            <LinearLayout
+                android:id="@+id/tabNavMenu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivNavMenu"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/nav_menu"
+                    android:src="@drawable/ic_nav_menu"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvNavMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_menu"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <!-- TAB 3: BIAYA -->
+            <LinearLayout
+                android:id="@+id/tabNavBiaya"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivNavBiaya"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/nav_expense"
+                    android:src="@drawable/ic_nav_biaya"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvNavBiaya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_expense"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <!-- TAB 4: LAPORAN -->
+            <LinearLayout
+                android:id="@+id/tabNavLaporan"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/ivNavLaporan"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:contentDescription="@string/nav_report"
+                    android:src="@drawable/ic_nav_laporan"
+                    app:tint="@color/text_secondary" />
+
+                <TextView
+                    android:id="@+id/tvNavLaporan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/nav_report"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
