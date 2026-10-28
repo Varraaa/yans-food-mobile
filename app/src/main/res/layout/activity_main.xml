@@ -100,18 +100,12 @@
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp">
 
-                <View
-                    android:layout_width="7dp"
-                    android:layout_height="7dp"
-                    android:layout_marginEnd="6dp"
-                    android:background="@drawable/dot_green" />
-
                 <TextView
                     android:id="@+id/tvStatusToko"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-bold"
-                    android:text="Buka"
+                    android:text="Aktif"
                     android:textColor="#059669"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -121,9 +115,7 @@
                 android:id="@+id/layoutAvatarOwner"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_marginStart="@dimen/space_10"
-                android:background="@drawable/bg_avatar_dashed_ring"
-                android:padding="3.5dp">
+                android:layout_marginStart="@dimen/space_10">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
